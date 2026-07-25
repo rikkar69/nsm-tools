@@ -15,29 +15,39 @@ _Last updated: 2026-07-25 · Phase: 6 (standalone site on purchased hostname)_
 - **intervals.icu sync verified working against a real account** → beta/untested copy
   removed, Hub card flipped to Live (commit `ca3f48c`).
 - Wrote `CLAUDE.md` and `PLAN.md` — this project had neither before now.
-- **Phase 6 started.** Hostname is **`nsmtools.run`**. `CNAME` file added at the repo root,
-  and GoatCounter repointed from `rikkar69.goatcounter.com` to `nsmtools.goatcounter.com`
+- **Phase 6 mostly done.** Hostname is **`nsmtools.run`**. `CNAME` file added at the repo
+  root, and GoatCounter repointed to `nsmtools.goatcounter.com` (code confirmed registered)
   in all four pages. Hub + marathon builder verified loading with a clean console.
+- **Second repo created and pushed: `rikkar69/nsm-tools`** (public). `hub-redesign` was
+  pushed as its `main` branch and set as the default. Pages is enabled on `main` / root and
+  has picked up `nsmtools.run` from the `CNAME` file. Verified beforehand that no
+  copyrighted source material exists anywhere in the history being pushed.
 
 ## In progress
 
-Phase 6. The in-repo file changes are done; everything remaining is outside the repo
-(GitHub repo creation, registrar DNS) or blocked on the site being live.
+Phase 6, waiting on DNS. Everything in-repo is done; the domain still points at the
+registrar's parking page.
+
+## Two repos now — know which one you're in
+
+`origin` → `Dew-Point-Pace-Converter` (this repo; `master` is the live standalone
+converter, `hub-redesign` is the hub source of truth).
+`hub` → `nsm-tools` (serves `nsmtools.run` off `main`).
+
+Hub work still lands on `hub-redesign` here, then ships with
+`git push hub hub-redesign:main`. Do not develop directly in the `nsm-tools` checkout —
+it has no history of its own beyond what is pushed from here.
 
 ## Next steps
 
-1. **Confirm the GoatCounter site code.** The four pages now assume the site was registered
-   as `nsmtools`. If it was registered under a different code, or not created yet, the
-   counts silently go nowhere — fix with a find/replace on `nsmtools.goatcounter.com`.
-2. **Create a second GitHub repo for the hub.** GitHub Pages serves one site per repo, so
-   two live sites means two repos. Name not yet decided (`nsmtools` / `nsm-tools` would
-   match the domain). Push the current `hub-redesign` tree as the new repo's default
-   branch. Leave this repo and its `master` completely alone.
-3. **Point the domain at it:** at the registrar, apex `A` records to `185.199.108.153`,
-   `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, plus a `CNAME` for `www` →
-   `rikkar69.github.io`. Then enable Pages + "Enforce HTTPS" in the new repo settings.
-   The `CNAME` file is already committed, so Pages will pick the domain up on first build.
-4. **Once `nsmtools.run` resolves**, add a banner to `master`'s `index.html` pointing at
+1. **DNS at the registrar — the only remaining blocker.** As of 2026-07-25 `nsmtools.run`
+   still resolves to registrar parking IPs (`76.223.105.230`, `13.248.243.5`). Replace with
+   apex `A` records to `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
+   `185.199.111.153`, plus a `CNAME` for `www` → `rikkar69.github.io`.
+2. **Enable "Enforce HTTPS"** once DNS propagates and GitHub finishes issuing the cert.
+   It could not be set at creation time — it requires a resolving domain first.
+   `gh api -X PUT repos/rikkar69/nsm-tools/pages -F https_enforced=true`
+3. **Once `nsmtools.run` resolves**, add a banner to `master`'s `index.html` pointing at
    the hub, with an eventual redirect to `nsmtools.run/dew-point.html` planned. The user
    has approved this in principle — but show the diff before pushing, `master` is live.
    Deliberately NOT done yet: linking live users at a domain that doesn't resolve is worse
