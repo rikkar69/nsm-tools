@@ -15,21 +15,33 @@ _Last updated: 2026-07-25 · Phase: 6 (standalone site on purchased hostname)_
 - **intervals.icu sync verified working against a real account** → beta/untested copy
   removed, Hub card flipped to Live (commit `ca3f48c`).
 - Wrote `CLAUDE.md` and `PLAN.md` — this project had neither before now.
+- **Phase 6 started.** Hostname is **`nsmtools.run`**. `CNAME` file added at the repo root,
+  and GoatCounter repointed from `rikkar69.goatcounter.com` to `nsmtools.goatcounter.com`
+  in all four pages. Hub + marathon builder verified loading with a clean console.
 
 ## In progress
 
-Nothing mid-flight. Working tree is clean and `hub-redesign` is pushed. Phase 6 has not
-been started — the notes below are a cold start, not a resumption.
+Phase 6. The in-repo file changes are done; everything remaining is outside the repo
+(GitHub repo creation, registrar DNS) or blocked on the site being live.
 
 ## Next steps
 
-1. **Get the hostname from the user** (see Open questions — this blocks everything else).
+1. **Confirm the GoatCounter site code.** The four pages now assume the site was registered
+   as `nsmtools`. If it was registered under a different code, or not created yet, the
+   counts silently go nowhere — fix with a find/replace on `nsmtools.goatcounter.com`.
 2. **Create a second GitHub repo for the hub.** GitHub Pages serves one site per repo, so
-   two live sites means two repos. Push the current `hub-redesign` tree as the new repo's
-   default branch. Leave this repo and its `master` completely alone.
-3. **Point the domain at it:** add a `CNAME` file containing the bare hostname to the new
-   repo root, configure DNS at the registrar (apex `A` records to GitHub's four IPs, or a
-   `CNAME` record for `www`), then enable Pages + "Enforce HTTPS" in the new repo settings.
+   two live sites means two repos. Name not yet decided (`nsmtools` / `nsm-tools` would
+   match the domain). Push the current `hub-redesign` tree as the new repo's default
+   branch. Leave this repo and its `master` completely alone.
+3. **Point the domain at it:** at the registrar, apex `A` records to `185.199.108.153`,
+   `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, plus a `CNAME` for `www` →
+   `rikkar69.github.io`. Then enable Pages + "Enforce HTTPS" in the new repo settings.
+   The `CNAME` file is already committed, so Pages will pick the domain up on first build.
+4. **Once `nsmtools.run` resolves**, add a banner to `master`'s `index.html` pointing at
+   the hub, with an eventual redirect to `nsmtools.run/dew-point.html` planned. The user
+   has approved this in principle — but show the diff before pushing, `master` is live.
+   Deliberately NOT done yet: linking live users at a domain that doesn't resolve is worse
+   than no banner.
 
 ## Gotchas / dead ends
 
@@ -40,8 +52,8 @@ been started — the notes below are a cold start, not a resumption.
   needs a second repo rather than clever branch/CNAME configuration.
 - Relative links (`dew-point.html`, `sub-t.html`, `marathon-builder.html`, `index.html`)
   are already domain-agnostic, so no link rewriting is needed when the domain changes.
-- GoatCounter (`rikkar69.goatcounter.com`) is hardcoded at the bottom of all four pages.
-  If the new site should track separately, that's a four-file find/replace.
+- GoatCounter is hardcoded at the bottom of all four pages — now `nsmtools.goatcounter.com`
+  on `hub-redesign`, still `rikkar69.goatcounter.com` on `master`. Keep them split.
 - `.claude/launch.json` is gitignored, so a fresh clone has no preview config. Recreate it
   or just run the server directly (see Verify with).
 - Source material (`*.jpg` book photos, both `.xlsx` files, `nsm_marathon_plan.md`,
@@ -61,8 +73,8 @@ suite — browser verification is the only check this project has.
 
 ## Open questions
 
-- **What is the purchased hostname?** Needed before anything in Phase 6 can start.
-- What should the new repo be called?
-- Separate GoatCounter site for the new domain, or keep pooling stats with the old one?
-- Should the existing Dew Point converter on `master` get a small banner pointing at the
-  new hub — and is it staying up indefinitely, or eventually redirecting?
+- **What should the new repo be called?** Blocks step 2.
+- Was the GoatCounter site actually registered as `nsmtools`? (See step 1.)
+
+_Answered 2026-07-25: hostname is `nsmtools.run`; GoatCounter tracks separately from
+`master`; `master` gets a banner and an eventual redirect, once the new site is live._

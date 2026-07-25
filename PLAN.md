@@ -16,9 +16,10 @@ pacing, and a full marathon build. Static, free, no accounts.
       per-week volume/intensity stats, drag-to-reorder day cards.
 - [x] **5 — Exports + intervals.icu sync** — JSON, styled Excel, intervals.icu text,
       and verified direct calendar push.
-- [ ] **6 — Standalone site on purchased hostname** ← *next*
+- [ ] **6 — Standalone site on `nsmtools.run`** ← *in progress*
       Move the hub to its own domain so `master` keeps serving existing Dew Point users
-      undisturbed. See HANDOFF.md for the open questions.
+      undisturbed. `CNAME` + separate GoatCounter site are in; the second GitHub repo and
+      the registrar DNS records are still outstanding. See HANDOFF.md.
 - [ ] **7 — Backlog** (not started, no commitment)
       - Distance-based "carbon approach" block for ~2:20–2:30 marathoners (the book
         describes it in prose only; would need interpretation, deliberately deferred)
@@ -56,5 +57,9 @@ pacing, and a full marathon build. Static, free, no accounts.
 - **2026-07-03 — Pin ExcelJS by exact version + SRI hash.** The page invites users to paste
   an intervals.icu API key; a compromised CDN script was the one realistic path to stealing
   it. SRI closes that off for free.
+- **2026-07-25 — Hub gets its own domain (`nsmtools.run`) and its own GoatCounter site.**
+  A second GitHub repo is required because Pages serves one site per repo. Analytics are
+  split rather than pooled so hub traffic is measurable separately from the existing
+  standalone Dew Point converter, which keeps `rikkar69.goatcounter.com` on `master`.
 - **2026-07-25 — intervals.icu sync promoted out of beta** after the user verified a real
   push against their own account. Warning banners and "untested" copy removed.
