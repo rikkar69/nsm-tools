@@ -317,7 +317,7 @@
     </div>
 
     <div id="icu-push-section">
-      <p class="field-hint" style="margin:0 0 12px">⚠ Experimental — untested against a real intervals.icu account. Try it with your own key before trusting it; the "Download intervals.icu text" option above is the safer, verified path.</p>
+      <p class="field-hint" style="margin:0 0 12px">Pushes all 15 weeks straight onto your intervals.icu calendar, starting from the date you pick.</p>
       <div class="row">
         <label for="icu-api-key">intervals.icu API key</label>
         <div class="key-row">
@@ -916,9 +916,9 @@
     const model = buildExportModel();
     const parts = [
       "NSM Marathon Plan — intervals.icu workout text export",
-      "Paste each block below into intervals.icu's Workout Builder as its own workout.",
-      "Paces are absolute; rest/interval timings on prose-derived sessions (progressive and",
-      "goal-MP days) are best-effort estimates — review before relying on them.",
+      "Paste each block below into intervals.icu's Workout Builder as its own workout,",
+      "or use the \"Push to intervals.icu\" button to send the whole plan to your calendar.",
+      "Paces are absolute. Structure and rest periods come from the book's own workout tables.",
       "=".repeat(70),
     ];
     model.weeks.forEach(week => {
